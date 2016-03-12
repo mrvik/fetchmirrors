@@ -146,16 +146,24 @@ get_list() {
 		y|Y|yes|Yes|yY|Yy|yy|YY)
 			sudo mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
 			sudo mv /tmp/mirrorlist.rank /etc/pacman.d/mirrorlist
+			cleanup
 			echo
 			echo "${Green}New mirrorlist installed ${Yellow}- Old mirrorlist backed up to /etc/pacman.d/mirrorlist.bak${ColorOff}"
 			echo
 		;;
 		*)
+			cleanup
 			echo
 			echo "${Yellow}Mirrorlist was not installed - exiting...${ColorOff}"
 			echo
 		;;
 	esac
+
+}
+
+cleanup() {
+
+rm /tmp/{mirrorlist,mirrorlist.rank} &> /dev/null
 
 }
 
