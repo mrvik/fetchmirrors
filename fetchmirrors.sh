@@ -63,7 +63,7 @@ get_opts() {
 		-h|--help) usage
 		;;
 		-c|--country)
-			if (<<<$countries grep -o "$2" &> /dev/null); then
+			if (<<<$countries grep -w "$2" &> /dev/null); then
 				country_code="$2"
 				get_list
 			else
