@@ -53,12 +53,16 @@ get_opts() {
 		ColorOff=$'\e[0m';
 	fi
 
-	case "$*" in
-		$(<<<"$*" grep "\-l\|\-\-list")) list
+	if [ "$1" == "--nocolor" ] || [ "$1" == "-n" ]; then
+		shift
+	fi
+
+	case "$1" in
+		-l|--list) list
 		;;
-		$(<<<"$*" grep "\-h\|\-\-help")) usage
+		-h|--help) usage
 		;;
-		$(<<<"$*" grep "\-c\|\-\-country"))
+		-c|--country)
 			if (<<<$countries grep -o "$2" &> /dev/null); then
 				country_code="$2"
 				get_list
