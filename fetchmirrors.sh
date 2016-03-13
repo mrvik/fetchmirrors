@@ -107,8 +107,9 @@ get_opts() {
 				if [ -z "$2" ]; then
 					echo "${Red}Error: ${Yellow}You must enter a country code."
 					echo
-				elif (<<<$countries grep -w "$2" &> /dev/null); then
+				elif (<<<"$countries" grep -w "$2" &> /dev/null); then
 					country_code="$2"
+					query="https://www.archlinux.org/mirrorlist/?country=${country_code}"
 					get_list
 				else
 					echo "${Red}Error: ${Yellow}country code: $2 not found."
@@ -147,14 +148,15 @@ search() {
 			break
 		fi
 	done
-		
-	country_code=$(echo "$countries" | grep -o "$input...." | awk '{print $2}')
 			
 	if [ "$input" -eq "50" ]; then
+		country_code="All"
 		query="https://www.archlinux.org/mirrorlist/all/"
 	elif [ "$input" -eq "51" ]; then
+		country_code="All HTTPS"
 		query="https://www.archlinux.org/mirrorlist/all/https"
 	else
+		country_code=$(echo "$countries" | grep -o "$input...." | awk '{print $2}')
 		query="https://www.archlinux.org/mirrorlist/?country=${country_code}"
 	fi
 
@@ -196,13 +198,13 @@ get_list() {
 		rankmirrors -v -n $rank_int /tmp/mirrorlist &> /tmp/mirrorlist.ranked
 		if [ "$?" -gt "0" ]; then
 			echo "${Red}Error: an error occured in ranking mirrorlist exiting..."
-			exit1
+			exit 1
 		fi
 	else
 		rankmirrors -n $rank_int /tmp/mirrorlist > /tmp/mirrorlist.ranked
 		if [ "$?" -gt "0" ]; then
 			echo "${Red}Error: an error occured in ranking mirrorlist exiting..."
-			exit1
+			exit 1
 		fi
 
 	fi
