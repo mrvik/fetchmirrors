@@ -118,7 +118,7 @@ search() {
 		country_code="All HTTPS"
 		query="https://www.archlinux.org/mirrorlist/all/https"
 	else
-		country_code=$(echo "$countries" | grep -o "$input...." | awk '{print $2}')
+		country_code=$(echo "$countries" | grep -o "$input...." | awk 'NR==1 {print $2}')
 		query="https://www.archlinux.org/mirrorlist/?country=${country_code}"
 	fi
 
