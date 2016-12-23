@@ -34,11 +34,12 @@ get_opts() {
 	this=${0##*/} # Set 'this', 'rank_int', 'confirm', 'countries', and color variables
 	rank_int="6"
 	confirm=true
-	countries=( "1) AT Austria - 2) AU  Australia - 3) BE Belgium\n4) BG Bulgaria - 5) BR Brazil - 6) BY Belarus\n7) CA Canada - 8) CL Chile - 9) CN China \n10) CO Columbia - 11) CZ Czech-Republic - 12) DE Germany\n13) DK Denmark - 14) EE Estonia - 15) ES Spain\n16) FI Finland - 17) FR France - 18) GB United-Kingdom\n19) HU Hungary - 20) IE Ireland - 21) IL Isreal\n22) IN India - 23) IT Italy - 24) JP Japan\n25) KR Korea - 26) KZ Kazakhstan - 27) LK Sri-Lanka\n28) LU Luxembourg - 29) LV Lativia - 30) MK Macedonia\n31) NC New-Caledonia - 32) NL Netherlands - 33) NO Norway\n34) NZ New-Zealand - 35) PL Poland - 36) PT Portugal\n37) RO Romania - 38) RS Serbia - 39) RU Russia\n40) SE Sweden - 41) SG Singapore - 42) SK Slovakia\n43) TR Turkey - 44) TW Taiwan - 45) UA Ukraine\n46) US United-States - 47) UZ Uzbekistan - 48) VN Viet-Nam\n49) ZA South-Africa - 50) AM All-Mirrors - 51) AS All-Https" )
 	Green=$'\e[0;32m';
 	Yellow=$'\e[0;33m';
 	Red=$'\e[0;31m';
+	Magenta=$'\x1b[95m';
 	ColorOff=$'\e[0m';
+	countries=( "${Magenta}1) ${Green}AM ${Yellow}All-Mirrors - ${Magenta}2) ${Green}AS ${Yellow}All-Https - ${Magenta}3) ${Green}AT ${Yellow}Austria\n${Magenta}4) ${Green}AU ${Yellow}Australia - ${Magenta}5) ${Green}BE ${Yellow}Belgium - ${Magenta}6) ${Green}BG ${Yellow}Bulgaria\n${Magenta}7) ${Green}BR ${Yellow}Brazil - ${Magenta}8) ${Green}BY ${Yellow}Belarus - ${Magenta}9) ${Green}CA ${Yellow}Canada\n${Magenta}10) ${Green}CL ${Yellow}Chile - ${Magenta}11) ${Green}CN ${Yellow}China - ${Magenta}12) ${Green}CO ${Yellow}Columbia\n${Magenta}13) ${Green}CZ ${Yellow}Czech-Republic - ${Magenta}14) ${Green}DE ${Yellow}Germany - ${Magenta}15) ${Green}DK ${Yellow}Denmark\n${Magenta}16) ${Green}EE ${Yellow}Estonia - ${Magenta}17) ${Green}ES ${Yellow}Spain - ${Magenta}18) ${Green}FI ${Yellow}Finland\n${Magenta}19) ${Green}FR ${Yellow}France - ${Magenta}20) ${Green}GB ${Yellow}United-Kingdom - ${Magenta}21) ${Green}HU ${Yellow}Hungary\n${Magenta}22) ${Green}IE ${Yellow}Ireland - ${Magenta}23) ${Green}IL ${Yellow}Isreal - ${Magenta}24) ${Green}IN ${Yellow}India\n${Magenta}25) ${Green}IT ${Yellow}Italy - ${Magenta}26) ${Green}JP ${Yellow}Japan - ${Magenta}27) ${Green}KR ${Yellow}Korea\n${Magenta}28) ${Green}KZ ${Yellow}Kazakhstan - ${Magenta}29) ${Green}LK ${Yellow}Sri-Lanka - ${Magenta}30) ${Green}LU ${Yellow}Luxembourg\n${Magenta}31) ${Green}LV ${Yellow}Lativia - ${Magenta}32) ${Green}MK ${Yellow}Macedonia - ${Magenta}33) ${Green}NC ${Yellow}New-Caledonia\n${Magenta}34) ${Green}NL ${Yellow}Netherlands - ${Magenta}35) ${Green}NO ${Yellow}Norway - ${Magenta}36) ${Green}NZ ${Yellow}New-Zealand\n${Magenta}37) ${Green}PL ${Yellow}Poland - ${Magenta}38) ${Green}PT ${Yellow}Portugal - ${Magenta}39) ${Green}RO ${Yellow}Romania\n${Magenta}40) ${Green}RS ${Yellow}Serbia - ${Magenta}41) ${Green}RU ${Yellow}Russia - ${Magenta}42) ${Green}SE ${Yellow}Sweden\n${Magenta}43) ${Green}SG ${Yellow}Singapore - ${Magenta}44) ${Green}SK ${Yellow}Slovakia - ${Magenta}45) ${Green}TR ${Yellow}Turkey\n${Magenta}46) ${Green}TW ${Yellow}Taiwan - ${Magenta}47) ${Green}UA ${Yellow}Ukraine - ${Magenta}48) ${Green}US ${Yellow}United-States\n${Magenta}49) ${Green}UZ ${Yellow}Uzbekistan - ${Magenta}50) ${Green}VN ${Yellow}Viet-Nam - ${Magenta}51) ${Green}ZA ${Yellow}South-Africa" )	
 
 	while (true) # Loop case statement on 1 parameter until something happens (break || exit 1)
 	  do
@@ -111,14 +112,14 @@ search() {
 		fi
 	done
 			
-	if [ "$input" -eq "50" ]; then
+	if [ "$input" -eq "1" ]; then
 		country_code="All"
 		query="https://www.archlinux.org/mirrorlist/all/"
-	elif [ "$input" -eq "51" ]; then
+	elif [ "$input" -eq "2" ]; then
 		country_code="All HTTPS"
 		query="https://www.archlinux.org/mirrorlist/all/https"
 	else
-		country_code=$(echo "$countries" | grep -o "$input...." | awk 'NR==1 {print $2}')
+		country_code=$(echo "$countries" | grep -o "$input.*" | awk 'NR==1 {print $2}')
 		query="https://www.archlinux.org/mirrorlist/?country=${country_code}"
 	fi
 
