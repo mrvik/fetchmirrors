@@ -8,7 +8,7 @@ usage() {
 
 	echo "${Yellow} Updates pacman mirrorlist directly from archlinux.org"
 	echo
-	echo "${Yellow} Usage:${Green} $this <opts> <args> ${Yellow}Ex: ${Green}${this} -s 4 -v -c US" # Display help / usage options menu
+	echo "${Yellow} Usage:${Green} $this <opts> <args> ${Yellow}Ex: ${Green}${this} -q -s 4 -c US" # Display help / usage options menu
 	echo
 	echo " Options:"
 	echo "${Green}   -c --country"
