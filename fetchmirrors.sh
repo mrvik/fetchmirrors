@@ -46,8 +46,8 @@ get_opts() {
 	trap ctrl_c INT
 	
 	if [ "$UID" -ne "0" ]; then
-       echo -e "\n${Red}[${this}] Error: ${Yellow}YOU MUST BE ROOT TO USE THIS!"
-       echo -e " Tip: ${Magenta}Precede your command with 'sudo'${ColorOff}\n"
+       echo -e "\n${Yellow}[${this}]${Red} Error: ${Yellow}YOU MUST BE ROOT TO USE THIS!"
+       echo -e "${Magenta}Tip: ${Yellow}Precede your command with 'sudo'${ColorOff}\n"
        exit 1
     fi
 
@@ -67,7 +67,7 @@ get_opts() {
 			-s|--server) # Specify number of servers to add to rank list output
 				rank_int="$2"
 				if ! (<<<"$rank_int" grep "^-\?[0-9]*$" &> /dev/null) || [ -z "$rank_int" ]; then
-					echo "${Red}[${this}] Error: ${Yellow} invalid number of servers specified ${rank_int}${ColorOff}"
+					echo "${Yellow}[${this}]${Red} Error: ${Yellow} invalid number of servers specified ${rank_int}${ColorOff}"
 					exit 1
 				fi
 				shift ; shift
@@ -87,14 +87,14 @@ get_opts() {
 			;;
 			-c|--country) # Country parameter allows user to input country code (ex: US)
 				if [ -z "$2" ]; then
-					echo "${Red}[${this}] Error: ${Yellow}You must enter a country code."
+					echo "${Yellow}[${this}]${Red} Error: ${Yellow}You must enter a country code."
 				else
 					shift
 					for i in $(echo "$@") ; do
 						if (echo "$countries" | grep -w "$i" &> /dev/null); then
 							query+="https://www.archlinux.org/mirrorlist/?country=${i} "
 						else
-							echo "${Red}[${this}] Error: ${Yellow}country code: $2 not found."
+							echo "${Yellow}[${this}]${Red} Error: ${Yellow}country code: $2 not found."
 							echo "To view a list of country codes run:${Green} $this -l${ColorOff}"
 							exit 1
 						fi
@@ -107,7 +107,7 @@ get_opts() {
 				search ; break
 			;;
 			*) # Take anything else as invalid input
-				echo "${Red}[${this}] Error: ${Yellow}unknown input $1 exiting...${ColorOff}"
+				echo "${Yellow}[${this}]${Red} Error: ${Yellow}unknown input $1 exiting...${ColorOff}"
 				exit 1
 		esac
 	done # End case options loop
@@ -146,13 +146,13 @@ search() {
 						country+=$(<<<"$countries" grep -o "$i.*" | awk 'NR==1 {print $2}' | sed 's/\\n.*/ /')
 						query+="https://www.archlinux.org/mirrorlist/?country=${i} "
 					else
-						echo "${Red}[${this}] Error: ${Yellow}invalid input [ $i ], select a number or code from the list.${ColorOff}"
+						echo "${Yellow}[${this}]${Red} Error: ${Yellow}invalid input [ $i ], select a number or code from the list.${ColorOff}"
 						err=true
 						break
 					fi
 				;;
 				*)
-					echo "${Red}[${this}] Error: ${Yellow}invalid input [ $i ], select a number or code from the list.${ColorOff}"
+					echo "${Yellow}[${this}]${Red} Error: ${Yellow}invalid input [ $i ], select a number or code from the list.${ColorOff}"
 					err=true
 					break
 				;;
@@ -193,10 +193,10 @@ get_list() {
 			echo "${Yellow}Fetching new mirrorlist from:${Green} ${list}${ColorOff}"
 			curl -s "$list" | sed '1,4d' >> /tmp/mirrorlist
 		elif (grep "Server" /tmp/mirrorlist &>/dev/null); then
-			echo -e "${Red}[${this}] Error: ${Yellow} Failed fetching mirrorlist from:${ColorOff}$list"
+			echo -e "${Yellow}[${this}]${Red} Error: ${Yellow} Failed fetching mirrorlist from:${ColorOff}$list"
 			echo "${Yellow}Skipping...${ColorOff}"
 		else
-			echo -e "${Red}[${this}] Error: ${Yellow} Failed fetching mirrorlist from:${ColorOff}$list"
+			echo -e "${Yellow}[${this}]${Red} Error: ${Yellow} Failed fetching mirrorlist from:${ColorOff}$list"
 			exit 1
 		fi
 	done
@@ -206,7 +206,7 @@ get_list() {
 	rankmirrors -n "$rank_int" /tmp/mirrorlist > /tmp/mirrorlist.ranked
 	
 	if [ "$?" -gt "0" ]; then
-		echo "${Red}[${this}] Error: ${Yellow}an error occured in ranking mirrorlist exiting..."
+		echo "${Yellow}[${this}]${Red} Error: ${Yellow}an error occured in ranking mirrorlist exiting..."
 		rm /tmp/{mirrorlist,mirrorlist.ranked} &> /dev/null
 		exit 1
 	elif "$confirm" ; then
