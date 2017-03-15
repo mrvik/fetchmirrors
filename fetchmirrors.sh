@@ -45,11 +45,11 @@ get_opts() {
 
 	trap ctrl_c INT
 	
-#	if [ "$UID" -ne "0" ]; then
-#       echo -e "\n${Red}[${this}] Error: ${Yellow}YOU MUST BE ROOT TO USE THIS!"
-#       echo -e " Tip: ${Magenta}Precede your command with 'sudo'${ColorOff}\n"
-#       exit 1
-#    fi
+	if [ "$UID" -ne "0" ]; then
+       echo -e "\n${Red}[${this}] Error: ${Yellow}YOU MUST BE ROOT TO USE THIS!"
+       echo -e " Tip: ${Magenta}Precede your command with 'sudo'${ColorOff}\n"
+       exit 1
+    fi
 
 	if [ -f /tmp/mirrorlist ]; then
 		rm /tmp/mirrorlist
