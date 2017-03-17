@@ -143,7 +143,7 @@ search() {
 				;;
 				2)	# Set query to all https mirrors
 					country="All HTTPS"
-					query+="https://www.archlinux.org/mirrorlist/all/https"
+					query="https://www.archlinux.org/mirrorlist/all/https/"
 					break
 				;;
 				[0-9]|[1-4][0-9]|[5][0-1])	
@@ -203,10 +203,10 @@ get_list() {
 			echo "${Yellow}Fetching new mirrorlist from:${Green} ${list}${ColorOff}"
 			curl -s "$list" | sed '1,4d' >> /tmp/mirrorlist
 		elif (grep "Server" /tmp/mirrorlist &>/dev/null); then
-			echo -e "${Yellow}[${this}]${Red} Error: ${Yellow} Failed fetching mirrorlist from:${ColorOff}$list"
+			echo -e "${Yellow}[${this}]${Red} Error: ${Yellow} Failed fetching mirrorlist from:${ColorOff} $list"
 			echo "${Yellow}Skipping...${ColorOff}"
 		else
-			echo -e "${Yellow}[${this}]${Red} Error: ${Yellow} Failed fetching mirrorlist from:${ColorOff}$list"
+			echo -e "${Yellow}[${this}]${Red} Error: ${Yellow} Failed fetching mirrorlist from:${ColorOff} $list"
 			exit 1
 		fi
 	done
