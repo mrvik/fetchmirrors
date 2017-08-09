@@ -54,7 +54,11 @@ get_opts() {
 	countries=( "1) AM All-Mirrors - 2) AS All-Https - 3) AT Austria\n4) AU Australia - 5) BE Belgium - 6) BG Bulgaria\n7) BR Brazil - 8) BY Belarus - 9) CA Canada\n10) CL Chile - 11) CN China - 12) CO Columbia\n13) CZ Czech-Republic - 14) DE Germany - 15) DK Denmark\n16) EE Estonia - 17) ES Spain - 18) FI Finland\n19) FR France - 20) GB United-Kingdom - 21) HU Hungary\n22) IE Ireland - 23) IL Isreal - 24) IN India\n25) IT Italy - 26) JP Japan - 27) KR Korea\n28) KZ Kazakhstan - 29) LK Sri-Lanka - 30) LU Luxembourg\n31) LV Lativia - 32) MK Macedonia - 33) NC New-Caledonia\n34) NL Netherlands - 35) NO Norway - 36) NZ New-Zealand\n37) PL Poland - 38) PT Portugal - 39) RO Romania\n40) RS Serbia - 41) RU Russia - 42) SE Sweden\n43) SG Singapore - 44) SK Slovakia - 45) TR Turkey\n46) TW Taiwan - 47) UA Ukraine - 48) US United-States\n49) UZ Uzbekistan - 50) VN Viet-Nam - 51) ZA South-Africa" )
 
 	trap ctrl_c INT
-	
+
+    if [ -z "$1" ]; then # If there are no arguments, show usage message without requiring root
+        usage ; exit 0
+    fi
+
 	if [ "$UID" -ne "0" ]; then
        echo -e "\n${Yellow}[${this}]${Red} Error: ${Yellow}YOU MUST BE ROOT TO USE THIS!"
        echo -e "${Magenta}Tip: ${Yellow}Precede your command with 'sudo'${ColorOff}\n"
