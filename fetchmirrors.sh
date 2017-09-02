@@ -55,11 +55,9 @@ get_opts() {
 
 	trap ctrl_c INT
 
-    if [ -z "$1" ]; then # If there are no arguments, show usage message without requiring root
+    if [ -z "$1" ] && [ "$UID" -ne "0" ]; then
         usage ; exit 0
-    fi
-
-	if [ "$UID" -ne "0" ]; then
+    elif [ "$UID" -ne "0" ]; then
        echo -e "\n${Yellow}[${this}]${Red} Error: ${Yellow}YOU MUST BE ROOT TO USE THIS!"
        echo -e "${Magenta}Tip: ${Yellow}Precede your command with 'sudo'${ColorOff}\n"
        exit 1
@@ -133,7 +131,7 @@ search() {
 	
 	while (true)
 	  do
-		echo "${Green}Country codes:${Yellow}"
+		echo "${Green}Country codes:${ColorOff}"
 		echo -e "$countries" | column -t
 		echo -n "${Yellow}Enter the number(s) or code(s) corresponding to your country ${Green}[4 9 US]${Yellow}:${ColorOff} "
 		read code
