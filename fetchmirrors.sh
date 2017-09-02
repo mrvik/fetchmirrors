@@ -180,7 +180,7 @@ search() {
 	done
 
 	if "$confirm" ; then
-		echo -en "\n${Yellow}You have selected the countries:${Green} $country${Yellow}- is this correct ${Green}[y/n]:${ColorOff} "
+		echo -en "\n${Yellow}You have selected the countries:${Green} $country${Yellow}- is this correct ${Green}[Y/n]:${ColorOff} "
 		read input
 		
 		case "$input" in
@@ -222,7 +222,7 @@ get_list() {
 		rm /tmp/{mirrorlist,mirrorlist.ranked} &> /dev/null
 		exit 1
 	elif "$confirm" ; then
-		echo -en "\n${Yellow}Would you like to view new mirrorlist? ${Green}[y/n]: ${ColorOff}"
+		echo -en "\n${Yellow}Would you like to view new mirrorlist? ${Green}[Y/n]: ${ColorOff}"
 		read input
 
 		case "$input" in
@@ -231,7 +231,7 @@ get_list() {
 			;;
 		esac
 
-		echo -en "\n${Yellow}Would you like to install the new mirrorlist backing up existing? ${Green}[y/n]:${ColorOff} "
+		echo -en "\n${Yellow}Would you like to install the new mirrorlist backing up existing? ${Green}[Y/n]:${ColorOff} "
 		read input
 	else
 		input=""
