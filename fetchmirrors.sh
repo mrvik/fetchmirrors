@@ -138,12 +138,12 @@ search() {
 			
 		for i in $(echo "$code") ; do
 			case "$i" in
-				1)	# Set query to all mirrors
+				1|AM)	# Set query to all mirrors
 					country="All"
 					query="https://www.archlinux.org/mirrorlist/all/"
 					break
 				;;
-				2)	# Set query to all https mirrors
+				2|AS)	# Set query to all https mirrors
 					country="All HTTPS"
 					query="https://www.archlinux.org/mirrorlist/all/https/"
 					break
